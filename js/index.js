@@ -46,3 +46,5 @@ function bracketWrapper(n) {
 }
 
 // 3. ** Реализовать функцию аналог flat для массивов. (https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/flat)
+
+// сделаю чуть позже
