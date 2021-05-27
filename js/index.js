@@ -58,15 +58,14 @@ const arr4 = [1, 2, [3, 4, [5, 6, [7, 8, [9, 10]]]]]; //arr4.flat(Infinity); =>[
 flat(arr2);
 
 function flat(arr, depth = 1) {
-  const realDepthValue = depthValue(arr);
+  const realDepthValue = depthValue(arr); // не знаю зачем я нахожу глубину массива, может это и не пригодится в итоге
   console.log("realdepthValue :>> ", realdepthValue);
-  // рекурсия ушла в бесконечность
+  // рекурсия ушла в бесконечность.  concat передает не занечение вложенного массива, а сам массив, впринципе он так и должен делать
   function depthValue(arr) {
     debugger;
     if (arr.filter(argument => Array.isArray(argument)).lengh === 0) {
       return 0;
     }
-
     return (
       1 + depthValue([].concat(arr.filter(argument => Array.isArray(argument))))
     );
