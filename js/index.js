@@ -48,22 +48,20 @@ function bracketWrapperRec(n) {
 
 // 3. ** Реализовать функцию аналог flat для массивов. (https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/flat)
 
-// сделаю чуть позже
-
 const arr1 = [1, 2, , 4, 5]; //Метод flat удаляет пустые слоты из массива
 const arr2 = [1, 2, [3, 4, [5, 6]]];
 const arr3 = [1, 2, [3, 4, [5, 6]]];
 const arr4 = [1, 2, [3, 4, [5, 6, [7, 8, [9, 10]]]]]; //arr4.flat(Infinity); =>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+const arr5 = [, 5, [7, 8], [, 9]];
 
-console.table("flat(arr4,Infinity) :>> ", flat(arr4, Infinity));
+console.table(arr5.flat(1));
+console.table("flat(arr5,1) :>> ", flat(arr5, 1));
 
 function flat(arr, depth = 1) {
   if (depth < 0) {
     console.log("depth must be a positiv value");
     return;
   }
-  // debugger;
-  let cumulativeArr = [];
 
   if (depth === 0) {
     for (let i = 0; i < arr.length; i++) {
@@ -73,10 +71,20 @@ function flat(arr, depth = 1) {
     }
     return arr;
   }
+  const recoursionArr = flatRecoursion(arr, depth);
+  for (let i = 0; i < recoursionArr.length; i++) {
+    if (typeof recoursionArr[i] === "undefined") {
+      recoursionArr.splice(i, 1);
+    }
+  }
+  return recoursionArr;
+}
 
+function flatRecoursion(arr, depth) {
+  let cumulativeArr = [];
   for (let i = 0; i < arr.length; i++) {
     if (Array.isArray(arr[i])) {
-      const temp = flat(arr[i], depth - 1);
+      const temp = flatRecoursion(arr[i], depth - 1);
       cumulativeArr = cumulativeArr.concat(temp);
     } else {
       cumulativeArr.push(arr[i]);
@@ -84,6 +92,8 @@ function flat(arr, depth = 1) {
   }
   return cumulativeArr;
 }
+
+//оставлю неудачное решение, что бы больше не повторять ошибку
 
 // flat(arr2);
 
